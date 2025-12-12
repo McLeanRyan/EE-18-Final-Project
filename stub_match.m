@@ -18,8 +18,8 @@ Y0 = 1 / Z0;
 freq1 = 13600000;
 freq2 = 2450000000;
 
-lambda1 = (9.8*10^8)/freq1;
-lambda2 = (9.8*10^8)/freq2;
+lambda1 = (3*10^8)/freq1;
+lambda2 = (3*10^8)/freq2;
 
 lambda1 = lambda2;
 
@@ -74,4 +74,5 @@ end
 if l_22<0
     l_22 = l_22 + lambda1/2;
 end
+
 
