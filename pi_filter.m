@@ -26,7 +26,6 @@ X_p_intrinsic = -1/B_load; % Parallel Reactance of Load
 %Virtual resistor for pi-match
 % Equation: X_L = Rv * ( sqrt(Z0/Rv - 1) + sqrt(Rp/Rv - 1) )
 %Solved w fzero
-% FIXED: Changed Z0 to Z_0 in the equation handle below
 match_eqn = @(Rv) (Rv * (sqrt(Z_0/Rv - 1) + sqrt(R_p/Rv - 1))) - X_L_fixed;
 % The Virtual Resistance must be lower than both Z0 and Rp
 %0.01 is subtracted to make the program stable / not accidentally root a
@@ -42,7 +41,6 @@ Q2 = sqrt(R_p/Rv - 1); % Load Side Q
 fprintf('Virtual Resistance Rv = %.2f Ohms\n', Rv);
 %capacitor calculations
 %C1 cancels Q1 reactance
-% FIXED: Changed Z0 to Z_0 below
 X_C1 = -Z_0 / Q1;
 C_tune = -1 / (w * X_C1);
 %C2 
@@ -51,11 +49,12 @@ B_target_total = Q2 / R_p;         % Susceptance needed for the match
 B_intrinsic = B_load;              % Susceptance provided by plasma
 B_external_needed = B_target_total - B_intrinsic;
 % Convert B to C
-% If B is positive, we need a Capacitor. (B = wC)
+% If B is positive, we need a capacitor
 C_load = B_external_needed / w;
 %% 6. OUTPUT RESULTS
 fprintf('\nREQUIRED COMPONENTS:\n');
 fprintf('--------------------\n');
 fprintf('1. Fixed Inductor (Series):  %.2f uH\n', L_fixed_uH);
 fprintf('2. Tune Capacitor (Source):  %.2f pF\n', C_tune * 1e12);
+
 fprintf('3. Load Capacitor (Plasma):  %.2f pF\n', C_load * 1e12);
